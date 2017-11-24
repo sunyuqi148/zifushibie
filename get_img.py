@@ -5,7 +5,7 @@ def get_image(url,x):
     request = urllib.request.Request(url)
     response = urllib.request.urlopen(request)
     get_img = response.read()
-    with open('./data/%s.jpg'%x,'wb') as fp:
+    with open('./data/org_img/%s.jpg'%x,'wb') as fp:
         fp.write(get_img)
         print('download%s'%x)
     return
