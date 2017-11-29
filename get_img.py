@@ -10,9 +10,10 @@ def get_image(url,x):
         print('download%s'%x)
     return
 
-#<img id="vcodeImg" class="vCode" style="cursor:pointer;" src="/unireg/call.do?cmd=register.verifyCode&amp;v=common/verifycode/vc_en&amp;vt=main_acode&amp;env=402332522293&amp;t=1511248695493" alt="验证码" width="120" height="50">
-url = 'http://reg.email.163.com/unireg/call.do?cmd=register.verifyCode&amp;v=common/verifycode/vc_en&amp;vt=main_acode&amp;env=402332522293&amp;t=1511248695493'
+#http://www.botzone.org/captcha/digit?0.33774116522644837
+#http://my.cnki.net/elibregister/CheckCode.aspx?id=1511954726092
+url = 'http://www.botzone.org/captcha/digit?0.33774116522644837'
 count=1
-while count<100:
+while count<50:
     get_image(url,count)
     count=count+1
