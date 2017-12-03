@@ -10,10 +10,10 @@ def get_image(url,x):
         print('download%s'%x)
     return
 
-#http://www.botzone.org/captcha/digit?0.33774116522644837
-#http://my.cnki.net/elibregister/CheckCode.aspx?id=1511954726092
-url = 'http://www.botzone.org/captcha/digit?0.33774116522644837'
+#http://www.botzone.org/captcha/digit?0.33774116522644837 单位验证码
+#http://my.cnki.net/elibregister/CheckCode.aspx?id=1511954726092 4位无粘连验证码
+url = 'http://my.cnki.net/elibregister/CheckCode.aspx?id=1511954726092'
 count=1
-while count<50:
+while count<100:
     get_image(url,count)
     count=count+1

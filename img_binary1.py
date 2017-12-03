@@ -19,11 +19,11 @@ while (x<100):
     GrayImage=cv2.imread('./data/org_img/%s.jpg'%x,0)
     # th1 = cv2.adaptiveThreshold(GrayImage,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,233,7)
     # GrayImage= cv2.medianBlur(th1,3)
-    # for j in range(GrayImage.shape[1]):
-    #     for i in range(GrayImage.shape[0]):
-    #         if (th1[i,j] == 0):
-    #             th1[i,j] = GrayImage[i,j]
     th1=etract(GrayImage, 2, 7)
-    cv2.imwrite("./data/bin_img/binary_%s.gloabl.jpg"%x,th1)
+    for j in range(GrayImage.shape[0]):
+        for i in range(GrayImage.shape[1]):
+            if (th1[j,i] == 0 and th1[j+1,i] != 0 and th1[j-1,i] != 0):
+                th1[j,i] = 255
+    cv2.imwrite("./data/bin_img/binary_%s.jpg"%x,th1)
     print("finish%s"%x)
     x=x+1
