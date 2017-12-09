@@ -3,28 +3,21 @@ import json
 import numpy as np
 from get_feature import *
 
-
-
 if __name__ == '__main__':
-	lst = [ '2', '3', '4', '5', '6', '7', '8', '9']
-	X, Y = get_feature_set(lst) #= np.array(get_feature_set())
-	
-	#f = open('./data/tag.list','r')
-	#s = f.readline()
-	#f.close()
-	print(X)
-	#Y = list(s.split(' '))
-	#print(Y)
+	lst = [ '2', '3', '4', '5', '6', '7', '8', '9','A','B','C','D','E','F','G',
+			'H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y']
+	X, Y = get_feature_set(lst)
+
+	# print(X)
 
 	clf = svm.LinearSVC()
 	clf.fit(X,Y)
 	
-	Z, T= get_test_set(lst) #z=np.array(get_feature('./data/dataset/1 (7).jpg'))
-	#z.reshape(-1,1)
-	print(Z)
+	Z, T= get_test_set(lst)
+	# print(Z)
 	P = clf.predict(Z)
 	P = P.tolist()
-	print(P)
+	# print(P)
 	right = 0
 	for i in range(len(P)):
 		if P[i] == T[i]: right += 1

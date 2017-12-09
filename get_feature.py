@@ -12,7 +12,7 @@ def tuple_zero(x):
 def get_feature(filename):
 	img = Image.open(filename)
 	width, height = img.size
-	print(str(width) + ' ' + str(height))
+	#print(str(width) + ' ' + str(height))
 	#exit()
 
 	feature = []
@@ -30,7 +30,7 @@ def get_feature(filename):
 			if img.getpixel((x,y))==0:
 				pix_cnt_y += 1
 		feature.append(pix_cnt_y)
-	print(feature)
+	#print(feature)
 	return feature
 
 def feature_PCA(feature_set, k = 10, filename = ''):
@@ -47,11 +47,9 @@ def get_feature_set(cset, k = 20):
 	fset = []
 	Y = []
 	for c in cset:
-		root = './data/dataset/'+c+'/'
+		root = './data/classify1/'+c+'/'
 		for idx, jpg in enumerate(os.listdir(root)):
-			if idx > k: break
 			filename = os.path.join(root, jpg)
-			#print(filename)
 			fset.append(get_feature(filename))
 			Y.append(c)
 	return np.array(fset), Y
@@ -60,10 +58,18 @@ def get_test_set(cset, k = 20):
 	fset = []
 	Y = []
 	for c in cset:
-		root = './data/dataset/'+c+'/'
+		root = './data/classify1/'+c+'/'
 		for idx, jpg in enumerate(os.listdir(root)):
 			if idx <= k: continue
 			filename = os.path.join(root, jpg)
-			fset.append(get_feature(filename))
+			fset20.append(get_feature(filename))
 			Y.append(c)
-	return np.array(fset), Y 
+	return np.array(fset), Y
+
+def get_symbol():
+	fset = []
+	root = './data/part'
+	for idx, jpg in enumerate(os.listdir(root)):
+		filename = os.path.join(root, jpg)
+		fset.append(get_feature(filename))
+	return np.array(fset)

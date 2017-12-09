@@ -1,8 +1,7 @@
+# 针对4位无粘连有噪验证码的二值化处理
 import cv2
-import numpy as np  
-from matplotlib import pyplot as plt
 
-def etract(img, scope, c):
+def binary(img): # 以150为阈值进行二值化
     x_size=img.shape[0]
     y_size=img.shape[1]
     re = img.copy()
@@ -14,16 +13,12 @@ def etract(img, scope, c):
                 re[x,y]=0
     return re
 
-x=1
-while (x<100):
-    GrayImage=cv2.imread('./data/org_img/%s.jpg'%x,0)
-    # th1 = cv2.adaptiveThreshold(GrayImage,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,233,7)
-    # GrayImage= cv2.medianBlur(th1,3)
-    th1=etract(GrayImage, 2, 7)
-    for j in range(GrayImage.shape[0]):
+def img_binary1(x):
+    GrayImage=cv2.imread('./data/org_img/%s.jpg'%x,0) # 读入灰度图片
+    bi=binary(GrayImage)
+    for j in range(GrayImage.shape[0]): # 调整图片（去噪），如果一个黑点周围没有黑点，则视为噪点
         for i in range(GrayImage.shape[1]):
-            if (th1[j,i] == 0 and th1[j+1,i] != 0 and th1[j-1,i] != 0):
-                th1[j,i] = 255
-    cv2.imwrite("./data/bin_img/binary_%s.jpg"%x,th1)
-    print("finish%s"%x)
-    x=x+1
+            if (bi[j,i] == 0 and bi[j+1,i] != 0 and bi[j-1,i] != 0):
+                bi[j,i] = 255
+    cv2.imwrite("./data/bin_img/binary_%s.jpg"%x,bi)
+    print("binary finish%s"%x)
