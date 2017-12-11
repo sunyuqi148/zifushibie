@@ -49,6 +49,7 @@ def get_feature_set(cset, k = 20):
 	for c in cset:
 		root = './data/classify1/'+c+'/'
 		for idx, jpg in enumerate(os.listdir(root)):
+			if idx >= k: break
 			filename = os.path.join(root, jpg)
 			fset.append(get_feature(filename))
 			Y.append(c)
