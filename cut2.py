@@ -1,10 +1,10 @@
-# 针对4位无粘连验证码的分割
+# 针对4位有噪含干扰线验证码的分割
 from PIL import Image, ImageDraw
 import queue
 q = queue.Queue() # 广搜队列
 buf = queue.Queue() # 缓冲队列
 
-def bfs(vis,img,n): # 从某个黑像素出发进行广度优先搜索，提取出一个符号
+def bfs(vis,img): # 从某个黑像素出发进行广度优先搜索，提取出一个符号
     x_size, y_size = img.size
     l=x_size-1
     r=0
@@ -44,17 +44,30 @@ def cut(x_size,y_size,n,part_n,offset): # 对第part_n部分进行切割，长�
     return
 
 
-def cut1(x):
+def cut2(x):
+# x=0
+# while(x<500):
     image = Image.open("./data/bin_img/binary_%s.jpg"%x)
     n=1 # 切割的图片部分编号
     x_size, y_size = image.size
     visit = [[0 for y in range(y_size)] for x in range(x_size)]
-    for j in range(y_size): # 寻找一个黑像素，进行广搜，搜完之后立即切割
-        for i in range(x_size):
+    for i in range(x_size): # 寻找一个黑像素，进行广搜，搜完之后立即切割
+        for j in range(y_size):
             if (visit[i][j] == 0 and image.getpixel((i,j)) <50):
                 visit[i][j] = 1
                 q.put((i,j))
-                width=bfs(visit,image,n)
+                width=bfs(visit,image)
+                ii=i
+                while(ii<=width[1]): # 某个字符可能在中间发生断裂，故将整个横向区间重新广搜一次再分割
+                    for jj in range(y_size):
+                        if (visit[ii][jj] == 0 and image.getpixel((ii, jj)) < 50):
+                            visit[ii][jj] = 1
+                            q.put((ii, jj))
+                            bfs(visit, image)
+                    ii=ii+1
+                if(buf.qsize()<20): # 丢弃过小的部分，可能是噪点
+                    continue
                 cut(width[1]-width[0]+1,y_size,x,n,width[0])
                 n=n+1
-    #print("cut finish%s"%x)
+    # print("cut finish%s"%x)
+    # x=x+1
