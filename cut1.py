@@ -31,7 +31,7 @@ def bfs(vis,img,n): # 从某个黑像素出发进行广度优先搜索，提取�
         if (down[1] < y_size and vis[down[0]][down[1]] == 0 and img.getpixel(down)<50):
             q.put(down)
             vis[down[0]][down[1]] = 1
-    return (l,r) # 返回该符号的左右边界值
+    return (l,r) # 返回该符号在图片中的左右边界值
 
 def cut(x_size,y_size,n,part_n,offset): # 对第part_n部分进行切割，长和高分别为x_size和y_size
     out = Image.new('L', (x_size, y_size), 255) # 创建新图片
@@ -57,4 +57,3 @@ def cut1(x):
                 width=bfs(visit,image,n)
                 cut(width[1]-width[0]+1,y_size,x,n,width[0])
                 n=n+1
-    #print("cut finish%s"%x)

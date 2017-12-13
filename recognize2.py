@@ -1,3 +1,4 @@
+# 针对4位有噪含干扰线验证码的识别，来源新东方：https://login.koolearn.com/sso/genVerifyImage.do
 from sklearn import svm
 from get_feature import *
 from img_binary2 import *

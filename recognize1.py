@@ -1,3 +1,4 @@
+# 针对4位无粘连验证码的识别，来源中国知网：http://my.cnki.net/elibregister/CheckCode.aspx?id=1511954726092
 from sklearn import svm
 from get_feature import *
 from img_binary1 import *

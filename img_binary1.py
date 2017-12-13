@@ -21,4 +21,3 @@ def img_binary1(x):
             if (bi[j,i] == 0 and bi[j+1,i] != 0 and bi[j-1,i] != 0):
                 bi[j,i] = 255
     cv2.imwrite("./data/bin_img/binary_%s.jpg"%x,bi)
-    #print("binary finish%s"%x)
